@@ -15,3 +15,4 @@ class OrGate(aInput : LogicOutput<Bit>? = null, bInput : LogicOutput<Bit>? = nul
     }
 }
 
+

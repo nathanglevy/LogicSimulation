@@ -12,3 +12,5 @@ data class BitInput(private var connectedTo : LogicOutput<Bit>? = null) : LogicI
         connectedTo = output
     }
 }
+
+

@@ -1,8 +1,6 @@
 package componentTest
 
-import components.AndGate
-import components.Constant
-import components.OrGate
+import components.*
 import logicTypes.Bit
 import logicTypes.LogicBitEnum
 import org.junit.Assert.assertEquals
@@ -43,19 +41,153 @@ class TestComponents {
         assertEquals(Bit(LogicBitEnum.UNDEFINED),andGate.getValue())
     }
 
+@Test
+fun testAndGateHighZ() {
+    val constantHigh = Constant(Bit(LogicBitEnum.HIGH))
+    val constantLow = Constant(Bit(LogicBitEnum.HIGH_Z))
+    val andGate = AndGate(constantHigh,constantLow)
+    assertEquals(Bit.high(),andGate.getValue())
+}
+
+@Test
+fun testOrGateHigh() {
+    val constantHigh = Constant(Bit(LogicBitEnum.HIGH))
+    val constantLow = Constant(Bit(LogicBitEnum.LOW))
+    val orGate = OrGate(constantHigh,constantLow)
+    assertEquals(Bit.high(),orGate.getValue())
+}
     @Test
-    fun testAndGateHighZ() {
+    fun testXorGateLow() {
         val constantHigh = Constant(Bit(LogicBitEnum.HIGH))
-        val constantLow = Constant(Bit(LogicBitEnum.HIGH_Z))
-        val andGate = AndGate(constantHigh,constantLow)
-        assertEquals(Bit.high(),andGate.getValue())
+        val xorGate = XorGate(constantHigh,constantHigh)
+        xorGate.a.connect(constantHigh)
+        xorGate.b.connect(constantHigh)
+        assertEquals(Bit.low(),xorGate.getValue())
     }
 
     @Test
-    fun testOrGateHigh() {
+    fun testXorGateHigh() {
         val constantHigh = Constant(Bit(LogicBitEnum.HIGH))
         val constantLow = Constant(Bit(LogicBitEnum.LOW))
-        val orGate = OrGate(constantHigh,constantLow)
-        assertEquals(Bit.high(),orGate.getValue())
+        val xorGate = XorGate(constantHigh,constantLow)
+        assertEquals(Bit.high(),xorGate.getValue())
     }
+
+    @Test
+    fun testXorGateUndefined() {
+        val constantHigh = Constant(Bit(LogicBitEnum.HIGH))
+        val constantLow = Constant(Bit(LogicBitEnum.UNDEFINED))
+        val xorGate = XorGate(constantHigh,constantLow)
+        assertEquals(Bit(LogicBitEnum.UNDEFINED),xorGate.getValue())
+    }
+
+    @Test
+    fun testXorGateHighZ() {
+        val constantHigh = Constant(Bit(LogicBitEnum.HIGH))
+        val constantLow = Constant(Bit(LogicBitEnum.HIGH_Z))
+        val xorGate = XorGate(constantHigh,constantLow)
+        assertEquals(Bit(LogicBitEnum.UNDEFINED),xorGate.getValue())
+    }
+
+    @Test
+    fun testNotGateHigh() {
+        val constantLow = Constant(Bit(LogicBitEnum.LOW))
+        val notGate = NotGate(constantLow)
+        assertEquals(Bit(LogicBitEnum.HIGH),notGate.getValue())
+    }
+
+    @Test
+    fun testNotGateLow() {
+        val constantHigh = Constant(Bit(LogicBitEnum.HIGH))
+        val notGate = NotGate(constantHigh)
+        assertEquals(Bit(LogicBitEnum.LOW),notGate.getValue())
+    }
+
+    @Test
+    fun testNotGateHighZ() {
+        val constantHighZ = Constant(Bit(LogicBitEnum.HIGH_Z))
+        val notGate = NotGate(constantHighZ)
+        assertEquals(Bit(LogicBitEnum.UNDEFINED),notGate.getValue())
+    }
+
+    @Test
+    fun testNotGateUnDefined() {
+        val constantUnDefined = Constant(Bit(LogicBitEnum.UNDEFINED))
+        val notGate = NotGate(constantUnDefined)
+        assertEquals(Bit(LogicBitEnum.UNDEFINED),notGate.getValue())
+    }
+
+    @Test
+    fun testmuxPLow() {
+        val constantHigh = Constant(Bit(LogicBitEnum.HIGH))
+        val constantLow = Constant(Bit(LogicBitEnum.LOW))
+        val mux = muxP(constantHigh,constantLow,constantLow)
+        assertEquals(Bit(LogicBitEnum.LOW),mux.getValue())
+    }
+    @Test
+    fun testmuxPHigh() {
+        val constantHigh = Constant(Bit(LogicBitEnum.HIGH))
+        val constantLow = Constant(Bit(LogicBitEnum.LOW))
+        val mux = muxP(constantHigh,constantLow,constantHigh)
+        assertEquals(Bit(LogicBitEnum.HIGH),mux.getValue())
+    }
+
+    @Test
+    fun muxWithGatesLow() {
+        val constantHigh = Constant(Bit(LogicBitEnum.HIGH))
+        val constantLow = Constant(Bit(LogicBitEnum.LOW))
+        val mux = muxWithGates(constantHigh,constantLow,constantHigh)
+        assertEquals(Bit(LogicBitEnum.HIGH),mux.getValue())
+    }
+
+    @Test
+    fun adder1() {
+        val constantHigh = Constant(Bit(LogicBitEnum.HIGH))
+        val constantLow = Constant(Bit(LogicBitEnum.LOW))
+        val adder = fullAdder(constantLow,constantLow,constantLow)
+        assertEquals(Bit(LogicBitEnum.LOW),adder.sum.getValue())
+        assertEquals(Bit(LogicBitEnum.LOW),adder.cout.getValue())
+    }
+
+    @Test
+    fun adder2() {
+        val constantHigh = Constant(Bit(LogicBitEnum.HIGH))
+        val constantLow = Constant(Bit(LogicBitEnum.LOW))
+        val adder = fullAdder(constantHigh,constantLow,constantLow)
+        assertEquals(Bit(LogicBitEnum.HIGH),adder.sum.getValue())
+        assertEquals(Bit(LogicBitEnum.LOW),adder.cout.getValue())
+    }
+
+    @Test
+    fun adder3() {
+        val constantHigh = Constant(Bit(LogicBitEnum.HIGH))
+        val constantLow = Constant(Bit(LogicBitEnum.LOW))
+        val adder = fullAdder(constantHigh,constantLow,constantHigh)
+        assertEquals(Bit(LogicBitEnum.LOW),adder.sum.getValue())
+        assertEquals(Bit(LogicBitEnum.HIGH),adder.cout.getValue())
+    }
+
+    @Test
+    fun adder4() {
+        val constantHigh = Constant(Bit(LogicBitEnum.HIGH))
+        val constantLow = Constant(Bit(LogicBitEnum.LOW))
+        val adder = fullAdder(constantHigh,constantHigh,constantHigh)
+        assertEquals(Bit(LogicBitEnum.HIGH),adder.cout.getValue())
+        assertEquals(Bit(LogicBitEnum.HIGH),adder.sum.getValue())
+    }
+
+
+    @Test
+    fun xor3gate() {
+        val constantHigh = Constant(Bit(LogicBitEnum.HIGH))
+        val constantLow = Constant(Bit(LogicBitEnum.LOW))
+        val xor = ThreeXorGate(constantHigh,constantHigh,constantHigh)
+        assertEquals(Bit(LogicBitEnum.HIGH),xor.getValue())
+
+    }
+
+
+
+
+
 }

@@ -9,3 +9,4 @@ abstract class TwoInputLogicGate(aInput : LogicOutput<Bit>? = null, bInput : Log
     val a = BitInput(aInput)
     val b = BitInput(bInput)
 }
+
