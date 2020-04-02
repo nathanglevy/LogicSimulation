@@ -3,7 +3,7 @@ package components
 import io.LogicOutput
 import logicTypes.Bit
 
-class muxWithGates (msbInput : LogicOutput<Bit>? = null, lsbInput : LogicOutput<Bit>? = null, s0Input : LogicOutput<Bit>? = null)
+class MuxWithGates (msbInput : LogicOutput<Bit>? = null, lsbInput : LogicOutput<Bit>? = null, s0Input : LogicOutput<Bit>? = null)
     : ThreeInputLogicGate(msbInput ,lsbInput ,s0Input ) {
     /*val msb = BitInput(msbInput)
     val lsb = BitInput(lsbInput)

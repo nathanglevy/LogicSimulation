@@ -4,7 +4,7 @@ import io.BitInput
 import io.LogicOutput
 import logicTypes.Bit
 
-class muxP(msbInput : LogicOutput<Bit>? = null, lsbInput : LogicOutput<Bit>? = null, s0Input : LogicOutput<Bit>? = null) : LogicOutput<Bit> {
+class MuxP(msbInput : LogicOutput<Bit>? = null, lsbInput : LogicOutput<Bit>? = null, s0Input : LogicOutput<Bit>? = null) : LogicOutput<Bit> {
     val msb = BitInput(msbInput)
     val lsb = BitInput(lsbInput)
     val s0 = BitInput(s0Input)

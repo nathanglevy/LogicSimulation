@@ -4,5 +4,5 @@ import logicTypes.Bit
 import logicTypes.LogicType
 
 interface LogicOutput<T : LogicType> {
-    fun getValue() : Bit
+    fun getValue() : T
 }

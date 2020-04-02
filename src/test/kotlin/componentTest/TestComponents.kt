@@ -3,6 +3,7 @@ package componentTest
 import components.*
 import logicTypes.Bit
 import logicTypes.LogicBitEnum
+import logicTypes.TwoBit
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -121,14 +122,14 @@ fun testOrGateHigh() {
     fun testmuxPLow() {
         val constantHigh = Constant(Bit(LogicBitEnum.HIGH))
         val constantLow = Constant(Bit(LogicBitEnum.LOW))
-        val mux = muxP(constantHigh,constantLow,constantLow)
+        val mux = MuxP(constantHigh,constantLow,constantLow)
         assertEquals(Bit(LogicBitEnum.LOW),mux.getValue())
     }
     @Test
     fun testmuxPHigh() {
         val constantHigh = Constant(Bit(LogicBitEnum.HIGH))
         val constantLow = Constant(Bit(LogicBitEnum.LOW))
-        val mux = muxP(constantHigh,constantLow,constantHigh)
+        val mux = MuxP(constantHigh,constantLow,constantHigh)
         assertEquals(Bit(LogicBitEnum.HIGH),mux.getValue())
     }
 
@@ -136,7 +137,7 @@ fun testOrGateHigh() {
     fun muxWithGatesLow() {
         val constantHigh = Constant(Bit(LogicBitEnum.HIGH))
         val constantLow = Constant(Bit(LogicBitEnum.LOW))
-        val mux = muxWithGates(constantHigh,constantLow,constantHigh)
+        val mux = MuxWithGates(constantHigh,constantLow,constantHigh)
         assertEquals(Bit(LogicBitEnum.HIGH),mux.getValue())
     }
 
@@ -144,16 +145,15 @@ fun testOrGateHigh() {
     fun adder1() {
         val constantHigh = Constant(Bit(LogicBitEnum.HIGH))
         val constantLow = Constant(Bit(LogicBitEnum.LOW))
-        val adder = fullAdder(constantLow,constantLow,constantLow)
-        assertEquals(Bit(LogicBitEnum.LOW),adder.sum.getValue())
-        assertEquals(Bit(LogicBitEnum.LOW),adder.cout.getValue())
+        val adder = FullAdder(constantLow,constantLow,constantLow)
+        assertEquals(TwoBit(Bit.low(),Bit.low()),adder.getValue())
     }
 
     @Test
     fun adder2() {
         val constantHigh = Constant(Bit(LogicBitEnum.HIGH))
         val constantLow = Constant(Bit(LogicBitEnum.LOW))
-        val adder = fullAdder(constantHigh,constantLow,constantLow)
+        val adder = FullAdder(constantHigh,constantLow,constantLow)
         assertEquals(Bit(LogicBitEnum.HIGH),adder.sum.getValue())
         assertEquals(Bit(LogicBitEnum.LOW),adder.cout.getValue())
     }
@@ -162,7 +162,7 @@ fun testOrGateHigh() {
     fun adder3() {
         val constantHigh = Constant(Bit(LogicBitEnum.HIGH))
         val constantLow = Constant(Bit(LogicBitEnum.LOW))
-        val adder = fullAdder(constantHigh,constantLow,constantHigh)
+        val adder = FullAdder(constantHigh,constantLow,constantHigh)
         assertEquals(Bit(LogicBitEnum.LOW),adder.sum.getValue())
         assertEquals(Bit(LogicBitEnum.HIGH),adder.cout.getValue())
     }
@@ -171,7 +171,7 @@ fun testOrGateHigh() {
     fun adder4() {
         val constantHigh = Constant(Bit(LogicBitEnum.HIGH))
         val constantLow = Constant(Bit(LogicBitEnum.LOW))
-        val adder = fullAdder(constantHigh,constantHigh,constantHigh)
+        val adder = FullAdder(constantHigh,constantHigh,constantHigh)
         assertEquals(Bit(LogicBitEnum.HIGH),adder.cout.getValue())
         assertEquals(Bit(LogicBitEnum.HIGH),adder.sum.getValue())
     }

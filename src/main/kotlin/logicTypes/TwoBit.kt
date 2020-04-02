@@ -1,7 +1,6 @@
 package logicTypes
 
-data class TwoBit( val value : Pair<Bit, Bit> ) :
+data class TwoBit( val first : Bit, val second : Bit) :
     LogicType {
     override val bitSize: Int = 2
-
 }
