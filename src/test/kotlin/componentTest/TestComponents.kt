@@ -154,8 +154,8 @@ fun testOrGateHigh() {
         val constantHigh = Constant(Bit(LogicBitEnum.HIGH))
         val constantLow = Constant(Bit(LogicBitEnum.LOW))
         val adder = FullAdder(constantHigh,constantLow,constantLow)
-        assertEquals(Bit(LogicBitEnum.HIGH),adder.sum.getValue())
-        assertEquals(Bit(LogicBitEnum.LOW),adder.cout.getValue())
+
+        assertEquals(TwoBit(Bit.high(),Bit.low()),adder.getValue())
     }
 
     @Test
@@ -163,8 +163,8 @@ fun testOrGateHigh() {
         val constantHigh = Constant(Bit(LogicBitEnum.HIGH))
         val constantLow = Constant(Bit(LogicBitEnum.LOW))
         val adder = FullAdder(constantHigh,constantLow,constantHigh)
-        assertEquals(Bit(LogicBitEnum.LOW),adder.sum.getValue())
-        assertEquals(Bit(LogicBitEnum.HIGH),adder.cout.getValue())
+
+        assertEquals(TwoBit(Bit.low(),Bit.high()),adder.getValue())
     }
 
     @Test
@@ -172,8 +172,31 @@ fun testOrGateHigh() {
         val constantHigh = Constant(Bit(LogicBitEnum.HIGH))
         val constantLow = Constant(Bit(LogicBitEnum.LOW))
         val adder = FullAdder(constantHigh,constantHigh,constantHigh)
-        assertEquals(Bit(LogicBitEnum.HIGH),adder.cout.getValue())
-        assertEquals(Bit(LogicBitEnum.HIGH),adder.sum.getValue())
+        assertEquals(TwoBit(Bit.high(),Bit.high()),adder.getValue())
+    }
+
+    @Test
+    fun adder5() {
+        val constantHigh = Constant(Bit(LogicBitEnum.HIGH))
+        val constantundefined = Constant(Bit(LogicBitEnum.UNDEFINED))
+        val adder = FullAdder(constantundefined,constantHigh,constantHigh)
+        assertEquals(TwoBit(Bit.undefined(),Bit.undefined()),adder.getValue())
+    }
+
+    @Test
+    fun adder6() {
+        val constantHigh = Constant(Bit(LogicBitEnum.HIGH))
+        val constantundefined = Constant(Bit(LogicBitEnum.UNDEFINED))
+        val adder = FullAdder(constantHigh,constantundefined,constantHigh)
+        assertEquals(TwoBit(Bit.undefined(),Bit.undefined()),adder.getValue())
+    }
+
+    @Test
+    fun adder7() {
+        val constantHigh = Constant(Bit(LogicBitEnum.HIGH))
+        val constantundefined = Constant(Bit(LogicBitEnum.UNDEFINED))
+        val adder = FullAdder(constantHigh,constantHigh,constantundefined)
+        assertEquals(TwoBit(Bit.undefined(),Bit.undefined()),adder.getValue())
     }
 
 
