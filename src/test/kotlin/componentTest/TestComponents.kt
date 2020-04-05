@@ -2,6 +2,7 @@ package componentTest
 
 import components.*
 import logicTypes.Bit
+import logicTypes.Byte8
 import logicTypes.LogicBitEnum
 import logicTypes.TwoBit
 import org.junit.Assert.assertEquals
@@ -209,6 +210,31 @@ fun testOrGateHigh() {
 
     }
 
+    @Test
+    fun simpleAdderTest() {
+        val a = Constant(Byte8.stringToByte("10101010"))
+        val b = Constant(Byte8.stringToByte("01010101"))
+        val byteAdder = ByteFullAdder(a,b)
+        val output = byteAdder.getValue()
+        assertEquals(Byte8.stringToByte("11111111"), output)
+    }
+
+    @Test
+    fun dynamicAdderTest() {
+        (0..8).forEach { a ->
+            (0..8).forEach { b ->
+                val aInput = Constant(Byte8.intToByte(a))
+                val bInput = Constant(Byte8.intToByte(b))
+                val byteAdder = ByteFullAdder(aInput,bInput)
+                val output = byteAdder.getValue()
+                println("Expected: $a + $b = ${a+b}")
+                println("Got: $a + $b = $output")
+                assertEquals(Byte8.intToByte((a + b) % 256), output)
+            }
+        }
+
+
+    }
 
 
 

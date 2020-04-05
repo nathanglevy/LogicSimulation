@@ -1,28 +1,33 @@
 package components
 
-import io.BitInput
 import io.BitOutput
+import io.ByteOutput
 import io.LogicOutput
 import logicTypes.Bit
-import logicTypes.Byte
-import logicTypes.LogicBitEnum
+import logicTypes.Byte8
 import logicTypes.TwoBit
+import logicTypes.split
 
-class ByteFullAdder(val aInput : Array<LogicOutput<Bit>> , val bInput : Array<LogicOutput<Bit>>, val cinInput : LogicOutput<Bit>? = null)
+class ByteFullAdder(
+    aInput : LogicOutput<Byte8>,
+    bInput : LogicOutput<Byte8>,
+    cInput : LogicOutput<Bit> = Constant(Bit.low())
+)
 {
-
-    fun getValue(): Array<Bit> {
-        val constantLow :BitOutput = BitOutput()
-        var res: Array<TwoBit>  = arrayOf<TwoBit>()
-        var tmpcin: LogicOutput<Bit> = this.cinInput ?: constantLow
-        for (n in (0..7)){
-            res[n] = FullAdder(aInput[n], bInput[n], tmpcin).getValue()
-            tmpcin = (res[n].second)
-
+    private val aSplit = aInput.split()
+    private val bSplit = bInput.split()
+    private val adders = mutableListOf(FullAdder(aSplit[0], bSplit[0], cInput))
+    init {
+        (1..7).forEach { index ->
+            val adder = FullAdder(aSplit[index],bSplit[index],adders[index-1].split()[1])
+            adders.add(adder)
         }
+    }
 
-        // עכשיו נכניס למערך חדש רק את הfirst ואת tmpcin האחרון
-        //איך יוצרים את זה בלי בלגןןן
+    fun getValue(): Byte8 {
+        val sValues = adders.map { it.split()[0].getValue() }
+        val cout = adders[7].split()[1].getValue()
+        return Byte8(sValues)
     }
 
 }

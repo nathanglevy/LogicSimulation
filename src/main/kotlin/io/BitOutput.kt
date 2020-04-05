@@ -9,3 +9,4 @@ data class BitOutput(private var connectedTo : LogicInput<Bit>? = null) :
         return connectedTo?.getValue() ?: Bit(LogicBitEnum.HIGH_Z)
     }
 }
+
