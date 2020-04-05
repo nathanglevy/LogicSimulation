@@ -240,7 +240,7 @@ fun testOrGateHigh() {
                 val aaa= aInput.map{index -> Constant(index)}
                 val countHigh = CountHigh(aaa)
                 val output = countHigh.getValue()
-            println("Expected: ${a.numOfOne()}")
+            println("Expected: ${a.numOfOne()} (the num is $a)")
             println("Got:  $output")
                 assertEquals( ThreeBit.intToThreeBit(a.numOfOne()) , output)
             }
