@@ -1,10 +1,7 @@
 package componentTest
 
 import components.*
-import logicTypes.Bit
-import logicTypes.Byte8
-import logicTypes.LogicBitEnum
-import logicTypes.TwoBit
+import logicTypes.*
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -236,7 +233,23 @@ fun testOrGateHigh() {
 
     }
 
+    @Test
+    fun dynamicCountHighTest() {
+        (0..127).forEach { a ->
+                val aInput =(a.intToList())
+                val aaa= aInput.map{index -> Constant(index)}
+                val countHigh = CountHigh(aaa)
+                val output = countHigh.getValue()
+            println("Expected: ${a.numOfOne()}")
+            println("Got:  $output")
+                assertEquals( ThreeBit.intToThreeBit(a.numOfOne()) , output)
+            }
+        }
+
+
+    }
 
 
 
-}
+
+

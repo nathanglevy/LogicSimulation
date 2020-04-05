@@ -1,11 +1,8 @@
 package components
 
-import io.BitOutput
-import io.ByteOutput
 import io.LogicOutput
 import logicTypes.Bit
 import logicTypes.Byte8
-import logicTypes.TwoBit
 import logicTypes.split
 
 class ByteFullAdder(
@@ -32,6 +29,4 @@ class ByteFullAdder(
 
 }
 
-// ןרגיסטר- עשה אינטרפייס של קלוק,
-// נחזיק Input output  כל עליית שעון out מקבל את in וin מקבל את newin
-//
+

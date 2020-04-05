@@ -17,3 +17,4 @@ fun LogicOutput<TwoBit>.split() : List<LogicOutput<Bit>> {
         ConstantDynamic { getValue()[index] }
     }
 }
+

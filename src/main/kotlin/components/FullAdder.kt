@@ -12,3 +12,4 @@ class FullAdder(aInput : LogicOutput<Bit>? = null, bInput : LogicOutput<Bit>? = 
     override fun getValue() = TwoBit(sum.getValue(),cout.getValue())
 }
 
+
